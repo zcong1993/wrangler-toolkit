@@ -18,6 +18,12 @@ export type RequestHandler = (req: IncomingMessage, res: ServerResponse) => any
 
 type Middleware = (handler: AugmentedRequestHandler) => AugmentedRequestHandler
 
+export const defaultHandler: AugmentedRequestHandler = async (req, res) => {
+  const r = (res as any) as Res
+  r.setStatus(404)
+  r.end()
+}
+
 export class App {
   private middlewares: Middleware[] = []
   private routes: RequestHandler[] = []
@@ -63,6 +69,19 @@ export class App {
 
   put(path: string, handler: AugmentedRequestHandler) {
     this.routes.push(put(path, handler))
+    return this
+  }
+
+  setDefaultHandler(handler: AugmentedRequestHandler = defaultHandler) {
+    this.routes.push(
+      get('/*', handler),
+      post('/*', handler),
+      put('/*', handler),
+      del('/*', handler),
+      head('/*', handler),
+      options('/*', handler),
+      patch('/*', handler)
+    )
     return this
   }
 
