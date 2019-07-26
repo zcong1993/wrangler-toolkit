@@ -1,6 +1,6 @@
 {
   "name": "@zcong/wrangler-toolkit",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "toolkit for cloudflare wrangler",
   "main": "./dist/index.js",
   "files": [
