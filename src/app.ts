@@ -78,7 +78,7 @@ export class App {
     if (this.defaultRoutes.length > 0) {
       return this
     }
-    this.defaultRoutes.concat([
+    this.defaultRoutes = [
       get('/*', handler),
       post('/*', handler),
       put('/*', handler),
@@ -86,7 +86,7 @@ export class App {
       head('/*', handler),
       options('/*', handler),
       patch('/*', handler)
-    ])
+    ]
     return this
   }
 
