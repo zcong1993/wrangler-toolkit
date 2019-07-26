@@ -29,6 +29,12 @@ export class Res {
     return this
   }
 
+  json(body: any) {
+    this.body = typeof body !== 'string' ? JSON.stringify(body) : body
+    this.setHeader('Content-Type', 'application/json')
+    return this
+  }
+
   build(): Response {
     return new Response(this.body, {
       status: this.status,
