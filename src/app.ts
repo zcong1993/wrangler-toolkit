@@ -27,6 +27,7 @@ export const defaultHandler: AugmentedRequestHandler = async (req, res) => {
 export class App {
   private middlewares: Middleware[] = []
   private routes: RequestHandler[] = []
+  private defaultRoutes: RequestHandler[] = []
   private handler: RequestHandler
 
   use(mw: Middleware) {
@@ -73,7 +74,11 @@ export class App {
   }
 
   setDefaultHandler(handler: AugmentedRequestHandler = defaultHandler) {
-    this.routes.push(
+    // already setted
+    if (this.defaultRoutes.length > 0) {
+      return this
+    }
+    this.defaultRoutes.concat([
       get('/*', handler),
       post('/*', handler),
       put('/*', handler),
@@ -81,7 +86,7 @@ export class App {
       head('/*', handler),
       options('/*', handler),
       patch('/*', handler)
-    )
+    ])
     return this
   }
 
@@ -98,7 +103,7 @@ export class App {
     if (this.handler) {
       return this.handler
     }
-    this.handler = this.wrapper(router(...this.routes))
+    this.handler = this.wrapper(router(...this.routes, ...this.defaultRoutes))
     return this.handler
   }
 
