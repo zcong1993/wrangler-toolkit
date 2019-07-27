@@ -96,6 +96,7 @@ export class App {
       (request as any) as IncomingMessage,
       (res as any) as ServerResponse
     )
+    console.log(res)
     return res.build()
   }
 
@@ -109,11 +110,9 @@ export class App {
 
   private wrapper(handler: AugmentedRequestHandler): RequestHandler {
     let h = handler
-    return async (req: ServerRequest, res: ServerResponse) => {
-      for (let i = this.middlewares.length - 1; i >= 0; i -= 1) {
-        h = this.middlewares[i](h)
-      }
-      return h(req, res)
+    for (let i = this.middlewares.length - 1; i >= 0; i -= 1) {
+      h = this.middlewares[i](h)
     }
+    return async (req: ServerRequest, res: ServerResponse) => h(req, res)
   }
 }
