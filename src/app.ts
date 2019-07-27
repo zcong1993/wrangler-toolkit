@@ -96,7 +96,6 @@ export class App {
       (request as any) as IncomingMessage,
       (res as any) as ServerResponse
     )
-    console.log(res)
     return res.build()
   }
 
