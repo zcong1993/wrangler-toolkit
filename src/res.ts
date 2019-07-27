@@ -1,10 +1,10 @@
 import { headers2Obj } from './utils'
 
 export class Res {
-  private body: BodyInit | null = null
-  private status: number = 200
-  private headers: Headers = new Headers()
-  private statusText?: string
+  public body: BodyInit | null = null
+  public status: number = 200
+  public headers: Headers = new Headers()
+  public statusText?: string
   private isEnd: boolean = false
   private res: Response
 
