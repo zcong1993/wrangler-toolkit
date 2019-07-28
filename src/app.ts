@@ -112,6 +112,6 @@ export class App {
     for (let i = this.middlewares.length - 1; i >= 0; i -= 1) {
       h = this.middlewares[i](h)
     }
-    return async (req: ServerRequest, res: ServerResponse) => h(req, res)
+    return h
   }
 }
