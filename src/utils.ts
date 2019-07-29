@@ -6,5 +6,5 @@ export const mergeHeaders = (h1: Headers, h2: Headers): Headers => {
   for (const [key, val] of h2.entries()) {
     res.set(key, val)
   }
-  return h1
+  return res
 }
