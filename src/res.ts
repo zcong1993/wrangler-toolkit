@@ -1,3 +1,5 @@
+import { mergeHeaders } from './utils'
+
 export class Res {
   public body: BodyInit | null = null
   public status: number = 200
@@ -74,7 +76,7 @@ export class Res {
     if (this.res) {
       return new Response(this.res.body, {
         status: this.res.status,
-        headers: new Headers([...this.res.headers, ...this.headers]),
+        headers: mergeHeaders(this.res.headers, this.headers),
         statusText: this.res.statusText
       })
     }
