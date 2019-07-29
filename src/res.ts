@@ -1,5 +1,3 @@
-import { headers2Obj } from './utils'
-
 export class Res {
   public body: BodyInit | null = null
   public status: number = 200
@@ -76,10 +74,7 @@ export class Res {
     if (this.res) {
       return new Response(this.res.body, {
         status: this.res.status,
-        headers: {
-          ...this.res.headers,
-          ...headers2Obj(this.headers)
-        },
+        headers: new Headers([...this.res.headers, ...this.headers]),
         statusText: this.res.statusText
       })
     }
